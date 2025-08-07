@@ -1,0 +1,204 @@
+/* PptViewer.css */
+.ppt-viewer {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+  overflow: auto;
+}
+
+.slides-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.slide {
+  width: 90%;
+  max-width: 960px;
+  height: 540px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* 封面页样式 */
+.cover-page {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.cover-title {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.cover-subtitle {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+.cover-author, .cover-date {
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+/* 内容页样式 */
+.content-page {
+  background: white;
+}
+
+.content-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.content-sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.section-heading {
+  font-size: 24px;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.section-content {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.bullet-points {
+  padding-left: 20px;
+}
+
+.bullet-points li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* 不同布局样式 */
+.layout-title_and_content .content-sections {
+  flex-direction: column;
+}
+
+.layout-two_content .content-sections {
+  flex-direction: row;
+}
+
+.layout-comparison .content-sections {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.layout-blank .content-sections {
+  justify-content: center;
+  align-items: center;
+}
+
+/* 章节页样式 */
+.section-header-page {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.section-header-title {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.section-header-subtitle {
+  font-size: 28px;
+  font-weight: normal;
+}
+
+/* 总结页样式 */
+.conclusion-page {
+  background: white;
+}
+
+.conclusion-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 2px solid #f5576c;
+  padding-bottom: 10px;
+}
+
+.conclusion-content {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.key-points h3 {
+  color: #f5576c;
+  margin-bottom: 10px;
+}
+
+.key-points ul {
+  padding-left: 20px;
+}
+
+.key-points li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* 感谢页样式 */
+.thank-you-page {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.thank-you-title {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.thank-you-subtitle {
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+.contact-info {
+  font-size: 20px;
+}
