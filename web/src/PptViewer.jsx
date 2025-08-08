@@ -1,6 +1,29 @@
 // PptViewer.jsx
 import React from 'react';
 import './PptViewer.css';
+import PptRenderer from './PptRenderer';
+import PPTTemplateRenderer from './PPTTemplateRenderer';
+import template1 from './templates/1.json';
+import template2 from './templates/2.json';
+import template3 from './templates/3.json';
+import template4 from './templates/4.json';
+import template5 from './templates/5.json';
+import template6 from './templates/6.json';
+import template7 from './templates/7.json';
+import template8 from './templates/8.json';
+import template9 from './templates/9.json';
+import template10 from './templates/10.json';
+import template11 from './templates/11.json';
+import template12 from './templates/12.json';
+import template13 from './templates/13.json';
+import template14 from './templates/14.json';
+import template15 from './templates/15.json';
+import template16 from './templates/16.json';
+import template17 from './templates/17.json';
+
+
+const templates = [template1, template2, template3, template4, template5, template6, template7, template8, template9, template10, template11, template12, template13, template14, template15, template16, template17]
+
 
 const PptViewer = ({ pptData }) => {
   console.log(pptData);
@@ -8,6 +31,8 @@ const PptViewer = ({ pptData }) => {
     switch (page.type) {
       case 'cover':
         return <CoverPage page={page} />;
+      case 'outline':
+        return <PPTTemplateRenderer template={template17} page={page} /> // <ContentPage page={page} />;
       case 'content':
         return <ContentPage page={page} />;
       case 'section_header':
@@ -22,7 +47,18 @@ const PptViewer = ({ pptData }) => {
   };
 
   return (
+    // <div className="ppt-viewer">
+    //   {templates.map(val =>
+
+    //     <PPTTemplateRenderer template={val} />
+    //   )}
+    //   <PptRenderer pptData={pptData} />
+    // </div>
     <div className="ppt-viewer">
+      {templates.map(val =>
+        <PPTTemplateRenderer template={val} />
+      )}
+      {/* <div className="header">{pptStr}</div> */}
       <div className="slides-container">
         {pptData.pages.map((page, index) => (
           <div key={index} className="slide">

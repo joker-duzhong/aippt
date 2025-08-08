@@ -39,11 +39,6 @@ function App() {
 
 {
   "title": "PPT主标题",
-  "outline": [
-    "第一章节标题",
-    "第二章节标题",
-    "第三章节标题"
-  ],
   "pages": [
     {
       "type": "cover",
@@ -51,6 +46,16 @@ function App() {
       "subtitle": "副标题（可选）",
       "author": "作者（可选）",
       "date": "日期（可选）"
+    },
+    {
+      "type": "outline",
+      "title": "目录",
+      "subtitle": "contents",
+      "outline": [
+        "第一章节标题",
+        "第二章节标题",
+        "第三章节标题"
+      ]
     },
     {
       "type": "content",
@@ -124,6 +129,8 @@ function App() {
     fetchPpts();
   }, []);
 
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -175,6 +182,7 @@ function App() {
                   </a>
                 </div>
               ))}
+
               {selectedPpt && (
                 <div className="ppt-viewer-overlay">
                   <button className="close-btn" onClick={() => setSelectedPpt(null)}>
