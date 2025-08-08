@@ -1,8 +1,6 @@
 // PptViewer.jsx
 import React from 'react';
 import './PptViewer.css';
-import PptRenderer from './PptRenderer';
-import PPTTemplateRenderer from './PPTTemplateRenderer';
 import template1 from './templates/1.json';
 import template2 from './templates/2.json';
 import template3 from './templates/3.json';
@@ -23,16 +21,18 @@ import template17 from './templates/17.json';
 
 
 const templates = [template1, template2, template3, template4, template5, template6, template7, template8, template9, template10, template11, template12, template13, template14, template15, template16, template17]
-
+console.log(templates);
 
 const PptViewer = ({ pptData }) => {
   console.log(pptData);
   const renderPage = (page, index) => {
     switch (page.type) {
       case 'cover':
-        return <CoverPage page={page} />;
+        return <div >
+          
+        </div>;
       case 'outline':
-        return <PPTTemplateRenderer template={template17} page={page} /> // <ContentPage page={page} />;
+        return '' // <ContentPage page={page} />;
       case 'content':
         return <ContentPage page={page} />;
       case 'section_header':
@@ -55,10 +55,9 @@ const PptViewer = ({ pptData }) => {
     //   <PptRenderer pptData={pptData} />
     // </div>
     <div className="ppt-viewer">
-      {templates.map(val =>
+      {/* {templates.map(val =>
         <PPTTemplateRenderer template={val} />
-      )}
-      {/* <div className="header">{pptStr}</div> */}
+      )} */}
       <div className="slides-container">
         {pptData.pages.map((page, index) => (
           <div key={index} className="slide">

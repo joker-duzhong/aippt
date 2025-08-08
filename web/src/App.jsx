@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import PptViewer from './PptViewer';
+import SvgPptViewer from './SvgPptViewer';
 
 function App() {
   const [ppts, setPpts] = useState([]);
@@ -188,7 +189,9 @@ function App() {
                   <button className="close-btn" onClick={() => setSelectedPpt(null)}>
                     关闭
                   </button>
-                  <PptViewer pptData={selectedPpt} />
+                  {/* <PptViewer pptData={selectedPpt} /> */}
+                  <SvgPptViewer pptData={selectedPpt} />
+
                 </div>
               )}
             </div>

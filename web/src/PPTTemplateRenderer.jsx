@@ -1,8 +1,7 @@
-// PPTTemplateRenderer.jsx
+// 修改后的 PPTTemplateRenderer.jsx
 import React from 'react';
 
 const PPTTemplateRenderer = ({ template, page }) => {
-  // console.log(template);
   // 解析颜色值
   const parseColor = (colorData) => {
     if (!colorData) return 'transparent';
@@ -60,6 +59,129 @@ const PPTTemplateRenderer = ({ template, page }) => {
         return parseLinearGradient(bgData.data);
       default:
         return 'transparent';
+    }
+  };
+
+  // 查找并替换文本内容
+  const fillTextContent = (element, page) => {
+    // 创建元素的深拷贝以避免修改原始模板
+    const newElement = JSON.parse(JSON.stringify(element));
+    
+    if (newElement.type === 'text' && newElement.contents) {
+      // 根据元素ID或其他标识符映射内容
+      switch (newElement.id) {
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+          // 这里需要根据具体模板和页面类型来填充内容
+          // 为了简化，我们使用一种通用的方法来映射内容
+          fillContentByPageType(newElement, page);
+          break;
+        default:
+          break;
+      }
+    }
+    
+    return newElement;
+  };
+  
+  // 根据页面类型填充内容
+  const fillContentByPageType = (element, page) => {
+    switch (page.type) {
+      case 'cover':
+        if (element.id === 5 || element.id === 6) {
+          // 标题元素
+          if (element.contents && element.contents.length > 0) {
+            element.contents[0].content = page.title || '';
+          }
+        } else if (element.id === 7 || element.id === 8) {
+          // 副标题/作者/日期元素
+          if (element.contents && element.contents.length > 0) {
+            element.contents[0].content = page.subtitle || '';
+          }
+        }
+        break;
+        
+      case 'outline':
+        if (element.id === 5 || element.id === 6) {
+          // 目录标题
+          if (element.contents && element.contents.length > 0) {
+            element.contents[0].content = page.title || '';
+          }
+        } else if (element.id === 7 || element.id === 8) {
+          // 目录副标题
+          if (element.contents && element.contents.length > 0) {
+            element.contents[0].content = page.subtitle || '';
+          }
+        }
+        break;
+        
+      case 'content':
+        // 内容页面处理
+        if (element.contents && element.contents.length > 0) {
+          // 根据元素ID和位置填充不同内容
+          fillContentPageText(element, page);
+        }
+        break;
+        
+      case 'section_header':
+        if (element.contents && element.contents.length > 0) {
+          if (element.id === 5 || element.id === 6) {
+            element.contents[0].content = page.title || '';
+          } else if (element.id === 7 || element.id === 8) {
+            element.contents[0].content = page.subtitle || '';
+          }
+        }
+        break;
+        
+      case 'conclusion':
+        if (element.contents && element.contents.length > 0) {
+          fillConclusionPageText(element, page);
+        }
+        break;
+        
+      case 'thank_you':
+        if (element.contents && element.contents.length > 0) {
+          if (element.id === 5 || element.id === 6) {
+            element.contents[0].content = page.title || '';
+          } else if (element.id === 7 || element.id === 8) {
+            element.contents[0].content = page.subtitle || '';
+          }
+        }
+        break;
+        
+      default:
+        break;
+    }
+  };
+  
+  // 填充内容页面文本
+  const fillContentPageText = (element, page) => {
+    // 简化处理，实际应用中需要更复杂的映射逻辑
+    if (page.sections && page.sections.length > 0) {
+      const firstSection = page.sections[0];
+      if (element.id === 5 || element.id === 6) {
+        // 章节标题
+        element.contents[0].content = page.title || '';
+      } else if (element.id === 7 || element.id === 8) {
+        // 第一个部分内容
+        element.contents[0].content = firstSection.heading || '';
+      } else if (element.id === 9 || element.id === 10) {
+        // 第一个部分的详细内容
+        element.contents[0].content = firstSection.content || '';
+      }
+    }
+  };
+  
+  // 填充结论页面文本
+  const fillConclusionPageText = (element, page) => {
+    if (element.id === 5 || element.id === 6) {
+      element.contents[0].content = page.title || '';
+    } else if (element.id === 7 || element.id === 8) {
+      element.contents[0].content = page.content || '';
     }
   };
 
@@ -156,11 +278,7 @@ const PPTTemplateRenderer = ({ template, page }) => {
       top: `${top}px`,
       width: `${width}px`,
       height: `${height}px`,
-      transform: `
-        rotate(${rotate || 0}deg)
-        scaleX(${flipH ? -1 : 1})
-        scaleY(${flipV ? -1 : 1})
-      `,
+      transform: `rotate(${rotate || 0}deg) scaleX(${flipH ? -1 : 1}) scaleY(${flipV ? -1 : 1})`,
       transformOrigin: 'center center',
     };
 
@@ -176,11 +294,14 @@ const PPTTemplateRenderer = ({ template, page }) => {
 
   // 渲染单个元素
   const renderElement = (element) => {
-    switch (element.type) {
+    // 填充文本内容
+    const filledElement = fillTextContent(element, page);
+    
+    switch (filledElement.type) {
       case 'text':
-        return renderTextElement(element);
+        return renderTextElement(filledElement);
       case 'image':
-        return renderImageElement(element);
+        return renderImageElement(filledElement);
       default:
         return null;
     }
@@ -189,8 +310,8 @@ const PPTTemplateRenderer = ({ template, page }) => {
   // 页面样式
   const pageStyle = {
     position: 'relative',
-    width: '960px', // 标准PPT宽度
-    height: '540px', // 标准PPT高度
+    width: '960px',
+    height: '540px',
     background: parseBackground(template.background),
     overflow: 'hidden',
     margin: '20px auto',
