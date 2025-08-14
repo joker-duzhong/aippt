@@ -115,8 +115,9 @@ function App() {
         setPpts([newPpt.data, ...ppts]);
         // 清空表单
         setTitle('');
+        console.log('创建PPT成功', newPpt);
       } else {
-        console.error('创建PPT失败:', response.statusText);
+        console.error('创建PPT失败:', response.statusText); 
       }
     } catch (error) {
       console.error('创建PPT失败:', error);
