@@ -36,5 +36,5 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 22
           source: "web/dist/*"
-          target: "/var/www/web"
+          target: "/www/wwwroot/cicd_test"
           overwrite: true
