@@ -36,5 +36,6 @@ jobs:
           password: ${{ secrets.SERVER_PASS }}
           port: 22
           source: "web/dist/*"
+          strip_components: 2   # 去掉 web 和 dist 两级目录
           target: "/www/wwwroot/cicd_test"
           overwrite: true
